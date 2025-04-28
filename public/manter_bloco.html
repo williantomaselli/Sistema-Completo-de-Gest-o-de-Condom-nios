@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manter Bloco</title>
+
+  <!-- Bootstrap -->
+  <link <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 id="formTitle">Novo Bloco</h1>
+    <form id="blocoForm" class="mt-4">
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <input type="text" class="form-control" id="descricao" required>
+      </div>
+      <div class="mb-3">
+        <label for="qtde" class="form-label">Quantidade de Apartamentos</label>
+        <input type="number" class="form-control" id="qtde" required min="1">
+      </div>
+      <button id="btnSalvar" type="submit" class="btn btn-success">Salvar</button>
+      <button type="button" id="btnCancelar" class="btn btn-secondary ms-2">Cancelar</button>
+    </form>
+  </div>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.1/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <script type="module" src="/js/manter_bloco.js"></script>
+</body>
+</html>
