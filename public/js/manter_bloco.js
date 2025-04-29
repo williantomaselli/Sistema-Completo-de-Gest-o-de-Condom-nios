@@ -1,4 +1,3 @@
-// public/js/manter_bloco.js
 import API_BASE from '/js/db_connection.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,28 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const descricaoEl = document.getElementById('descricao');
   const qtdeEl      = document.getElementById('qtde');
 
-  // Analisa query string
-  const params = new URLSearchParams(window.location.search);
-  const blocoId = params.get('id');
-  const mode    = params.get('mode');         // possivelmente 'consult'
-  const isEdit  = Boolean(blocoId) && !mode;  // se há id e NÃO é modo consult
+  const params    = new URLSearchParams(window.location.search);
+  const blocoId   = params.get('id');
+  const mode      = params.get('mode');
+  const isEdit    = Boolean(blocoId) && !mode;
   const isConsult = mode === 'consult';
 
-  // Configura título e botões
   if (isConsult) {
-    title.textContent    = 'Consultar Bloco';
-    btnSalvar.style.display = 'none';         // oculta salvar
-    descricaoEl.readOnly = true;
-    qtdeEl.readOnly      = true;
+    title.textContent       = 'Consultar Bloco';
+    btnSalvar.style.display = 'none';
+    descricaoEl.readOnly    = true;
+    qtdeEl.readOnly         = true;
   }
   else if (isEdit) {
     title.textContent = 'Alterar Bloco';
   }
 
-  // Se for editar ou consultar, carrega dados
   if (blocoId) {
     fetch(`${API_BASE}/blocos/${blocoId}`)
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error(res.statusText);
+        return res.json();
+      })
       .then(data => {
         descricaoEl.value = data.descricao;
         qtdeEl.value      = data.qtde_apartamentos;
@@ -41,12 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   }
 
-  // Cancelar sempre volta para lista
   btnCancelar.addEventListener('click', () => {
     window.location.href = '/blocos.html';
   });
 
-  // Apenas em modo de criação ou edição
   if (!isConsult) {
     form.addEventListener('submit', async e => {
       e.preventDefault();
@@ -55,10 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const method = isEdit ? 'PUT' : 'POST';
       const url    = isEdit
-        ? `${window.location.origin}${API_BASE}/blocos/${blocoId}`
-        : `${window.location.origin}${API_BASE}/blocos`;
+        ? `${API_BASE}/blocos/${blocoId}`
+        : `${API_BASE}/blocos`;
 
       try {
+        console.log(`Enviando ${method} para `, url, { descricao, qtde_apartamentos: qtde });
         const res = await fetch(url, {
           method,
           headers: { 'Content-Type': 'application/json' },

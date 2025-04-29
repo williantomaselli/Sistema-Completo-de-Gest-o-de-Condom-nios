@@ -1,6 +1,7 @@
 {
   "description": "",
   "dependencies": {
+    "all": "^0.0.0",
     "express": "^5.1.0",
     "mysql2": "^3.14.1"
   }

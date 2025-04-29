@@ -1,2 +1,3 @@
-const API_BASE = 'http://localhost:3000/api';
+// public/js/db_connection.js
+const API_BASE = '/api';
 export default API_BASE;
