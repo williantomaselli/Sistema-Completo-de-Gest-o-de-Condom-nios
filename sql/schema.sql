@@ -145,6 +145,8 @@ INSERT INTO tipo_manutencao (descricao) VALUES
 INSERT INTO manutencao (tipo_id, data, local, descricao) VALUES
   (1, '2025-03-15', 'Hall de entrada', 'Troca de lâmpadas queimadas'),
   (2, '2025-03-20', 'Calha externa', 'Desentupimento');
+  
+  
 
 SELECT * FROM bloco;
 SELECT * FROM apartamento;
