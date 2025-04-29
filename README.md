@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🏢 Sistema de Gestão de Condomínio
 
 Um sistema web completo para gerenciar **blocos**, **apartamentos**, **moradores** e **pagamentos** de um condomínio de forma prática e centralizada.
