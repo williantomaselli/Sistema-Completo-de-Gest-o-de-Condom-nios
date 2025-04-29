@@ -151,3 +151,4 @@ INSERT INTO manutencao (tipo_id, data, local, descricao) VALUES
 SELECT * FROM bloco;
 SELECT * FROM apartamento;
 SELECT * FROM morador;
+SELECT * FROM referencia;
