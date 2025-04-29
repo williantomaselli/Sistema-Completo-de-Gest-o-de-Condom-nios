@@ -150,6 +150,6 @@ Contribuições são bem-vindas! Siga os passos abaixo:
 ## 📄 Licença
 
 Este projeto está licenciado sob a **MIT License**.  
-© 2025 Seu Nome Aqui
+© 2025 Willian Vitor Correa Tomaselli
 
 
