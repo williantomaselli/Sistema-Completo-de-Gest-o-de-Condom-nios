@@ -8,10 +8,11 @@ const PORT = 3000;
 // Configuração MySQL
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: 'creci3425',
+  user: 'appuser',       // em vez de 'root'
+  password: 'app_pass123', 
   database: 'condominio'
 });
+
 db.connect(err => {
   if (err) {
     console.error('Erro ao conectar no MySQL:', err);
