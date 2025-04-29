@@ -4,34 +4,68 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Manter Bloco</title>
-
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-  integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
-  crossorigin="anonymous">
-
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f4f7fc; padding-top: 56px; }
+    .card { max-width: 600px; margin: auto; }
+    .breadcrumb-item + .breadcrumb-item::before { content: '›'; }
+  </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1 id="formTitle">Novo Bloco</h1>
-    <form id="blocoForm" class="mt-4">
-      <div class="mb-3">
-        <label for="descricao" class="form-label">Descrição</label>
-        <input type="text" class="form-control" id="descricao" required>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Condomínio</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="blocos.html">Blocos</a></li>
+        </ul>
+        <button class="btn btn-outline-light" onclick="history.back()">Voltar</button>
       </div>
-      <div class="mb-3">
-        <label for="qtde" class="form-label">Quantidade de Apartamentos</label>
-        <input type="number" class="form-control" id="qtde" required min="1">
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="blocos.html">Blocos</a></li>
+        <li class="breadcrumb-item active" aria-current="page" id="formTitle">Novo Bloco</li>
+      </ol>
+    </nav>
+
+    <!-- Card com Form -->
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title mb-4" id="formTitle">Novo Bloco</h5>
+        <form id="blocoForm" class="row g-3">
+          <div class="col-12">
+            <label for="descricao" class="form-label">Descrição <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="descricao" required>
+          </div>
+          <div class="col-12">
+            <label for="qtde" class="form-label">Quantidade de Apartamentos <span class="text-danger">*</span></label>
+            <input type="number" class="form-control" id="qtde" required min="1">
+          </div>
+          <div class="col-12 d-flex justify-content-end">
+            <button type="button" id="btnCancelar" class="btn btn-secondary me-2">Cancelar</button>
+            <button id="btnSalvar" type="submit" class="btn btn-success">Salvar</button>
+          </div>
+        </form>
       </div>
-      <button id="btnSalvar" type="submit" class="btn btn-success">Salvar</button>
-      <button type="button" id="btnCancelar" class="btn btn-secondary ms-2">Cancelar</button>
-    </form>
+    </div>
+
   </div>
 
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.4.1/dist/js/bootstrap.bundle.min.js"
-  ></script>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Lógica da página -->
   <script type="module" src="/js/manter_bloco.js"></script>
 </body>
 </html>
