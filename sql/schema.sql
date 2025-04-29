@@ -1,5 +1,11 @@
 -- 1) Criação do banco de dados
+
+-- criando user pra que funcione corretamente independente de como esta configurado o MySQL
 CREATE DATABASE IF NOT EXISTS condominio;
+CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'app_pass123';
+GRANT ALL PRIVILEGES ON condominio.* TO 'appuser'@'localhost';
+FLUSH PRIVILEGES;
+
 USE condominio;
 
 -- 2) Tabela de Blocos
