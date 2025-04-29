@@ -80,6 +80,26 @@ CREATE TABLE manutencao (
     ON DELETE RESTRICT
 );
 
+ALTER TABLE morador
+ADD COLUMN responsavel_pelo_apartamento ENUM('Sim','Não') DEFAULT 'Não',
+ADD COLUMN proprietario_do_apartamento ENUM('Sim','Não') DEFAULT 'Não',
+ADD COLUMN possui_veiculo ENUM('Sim','Não') DEFAULT 'Não',
+ADD COLUMN qtd_vagas_garagem TINYINT DEFAULT 0,
+ADD COLUMN numero_vaga VARCHAR(50);
+
+CREATE TABLE veiculo (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  morador_id INT NOT NULL,
+  placa VARCHAR(10) NOT NULL,
+  marca VARCHAR(50),
+  modelo VARCHAR(50),
+  FOREIGN KEY (morador_id) REFERENCES morador(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+  UNIQUE KEY uq_placa (placa)
+);
+
+
 -- ============================================================
 -- Inserções de exemplo para popular as tabelas do sistema
 
@@ -128,3 +148,4 @@ INSERT INTO manutencao (tipo_id, data, local, descricao) VALUES
 
 SELECT * FROM bloco;
 SELECT * FROM apartamento;
+SELECT * FROM morador;

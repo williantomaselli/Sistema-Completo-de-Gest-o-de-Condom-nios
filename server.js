@@ -201,7 +201,84 @@ app.get('/api/apartamentos', (req, res) => {
       res.json({ message: 'Excluído com sucesso' });
     });
   });
+
+  // Recuperar todos os moradores
+app.get('/api/moradores', (req, res) => {
+    const sql = `
+      SELECT m.id, m.nome, m.cpf, a.numero AS apartamento, b.descricao AS bloco
+      FROM morador m
+      JOIN apartamento a ON m.apartamento_id = a.id
+      JOIN bloco b ON a.bloco_id = b.id
+    `;
+    db.query(sql, (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json(results);
+    });
+  });
   
+  // Recuperar 1 morador por id
+  app.get('/api/moradores/:id', (req, res) => {
+    const { id } = req.params;
+    const sql = `
+      SELECT id, nome, cpf, telefone, apartamento_id
+      FROM morador
+      WHERE id = ?
+    `;
+    db.query(sql, [id], (err, results) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (!results.length) return res.status(404).json({ error: 'Morador não encontrado' });
+      res.json(results[0]);
+    });
+  });
+  
+  // Criar novo morador
+  app.post('/api/moradores', (req, res) => {
+    const { nome, cpf, telefone, apartamento_id } = req.body;
+    if (!nome || !cpf || !apartamento_id) {
+      return res.status(400).json({ error: 'Campos obrigatórios faltando' });
+    }
+    const sql = 'INSERT INTO morador (nome, cpf, telefone, apartamento_id) VALUES (?, ?, ?, ?)';
+    db.query(sql, [nome, cpf, telefone, apartamento_id], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          return res.status(409).json({ error: 'CPF já cadastrado' });
+        }
+        return res.status(500).json({ error: err.message });
+      }
+      res.status(201).json({ id: result.insertId });
+    });
+  });
+  
+  // Atualizar morador
+  app.put('/api/moradores/:id', (req, res) => {
+    const { id } = req.params;
+    const { nome, cpf, telefone, apartamento_id } = req.body;
+    if (!nome || !cpf || !apartamento_id) {
+      return res.status(400).json({ error: 'Campos obrigatórios faltando' });
+    }
+    const sql = 'UPDATE morador SET nome = ?, cpf = ?, telefone = ?, apartamento_id = ? WHERE id = ?';
+    db.query(sql, [nome, cpf, telefone, apartamento_id, id], (err, result) => {
+      if (err) {
+        if (err.code === 'ER_DUP_ENTRY') {
+          return res.status(409).json({ error: 'CPF já cadastrado' });
+        }
+        return res.status(500).json({ error: err.message });
+      }
+      if (!result.affectedRows) return res.status(404).json({ error: 'Morador não encontrado' });
+      res.json({ message: 'Atualizado com sucesso' });
+    });
+  });
+  
+  // Deletar morador
+  app.delete('/api/moradores/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM morador WHERE id = ?', [id], (err, result) => {
+      if (err) return res.status(500).json({ error: err.message });
+      if (!result.affectedRows) return res.status(404).json({ error: 'Morador não encontrado' });
+      res.json({ message: 'Excluído com sucesso' });
+    });
+  });
+
 
 // Inicia servidor
 app.listen(PORT, () => {
